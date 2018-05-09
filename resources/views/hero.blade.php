@@ -19,11 +19,12 @@
         <div>Description: {{ $hero->origin_description }}</div>
         <div>Superpowers: {{ $hero->superpowers }}</div>
         <div>He say: {{ $hero->catch_phrase }}</div>
-        <a href="/update/{{ $hero->id }}">Update</a>
+        <a href="/heroes/{{ $hero->id }}/edit">Edit</a>
         <a id="" href="/heroes">Back to all</a>
-        <form method="DELETE" action="/heroes/{{ $hero->id }}">
-
+        <form method="POST" action="/heroes/{{ $hero->id }}">
             @method('DELETE')
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            
             <button id="" type="submit">Delete</button>
         </form>
 

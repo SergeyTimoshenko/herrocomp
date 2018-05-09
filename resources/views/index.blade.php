@@ -44,39 +44,3 @@
 
 <div id="result"></div>
 <a href="/">Back to all</a>
-
-
-    {{--<script>--}}
-
-        {{--function addHero() {--}}
-            {{--var nickname = document.getElementById('nickname');--}}
-            {{--var real_name = document.getElementById('real_name');--}}
-            {{--var origin_desctiption = document.getElementById('origin_desctiption');--}}
-            {{--var superpowers = document.getElementById('superpowers');--}}
-            {{--var catch_phrase = document.getElementById('catch_phrase');--}}
-            {{--var image = document.getElementById('image');--}}
-
-
-            {{--var req = new XMLHttpRequest();--}}
-            {{--var params = 'nickname=' + nickname.value + '&' +--}}
-                {{--'&real_name=' + real_name.value + '&' +--}}
-                {{--'&origin_desctiption=' + origin_desctiption.value + '&' +--}}
-                {{--'&superpowers=' + superpowers.value + '&' +--}}
-                {{--'&catch_phrase=' + catch_phrase.value + '&' +--}}
-                {{--'&image=' + image.value;--}}
-
-            {{--req.open("GET", '/submit?' + params, true);--}}
-
-            {{--req.onreadystatechange = function() {--}}
-                {{--if (req.readyState === 4) {--}}
-                    {{--alert('Send!');--}}
-                    {{--var result = document.getElementById('result');--}}
-                    {{--result.innerHTML = req.responseText;--}}
-                {{--}--}}
-            {{--};--}}
-
-            {{--req.send();--}}
-        {{--}--}}
-    {{--</script>--}}
-</body>
-</html>

@@ -20,31 +20,44 @@
 </head>
 
 <body>
-<label>Nickname:</label>
-<input id="nickname"><br>
-<label>RealName:</label>
-<input id="real_name"><br>
-<label>Origin description:</label>
-<input id="origin_desctiption"><br>
-<label>Superpowers:</label>
-<input id="superpowers"><br>
-<label>Catch phrase:</label>
-<input id="catch_phrase"><br>
-<label>URL image:</label>
-<input id="image"><br>
-<button id="addHero" onclick="updateHero()">Update</button>
+<form method="POST" action="/heroes/{{ $hero->id }}">
+  @method('PUT')
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <label>Nickname:</label>
+    <input name="nickname" id="nickname"><br>
+
+    <label>RealName:</label>
+    <input name="real_name" id="real_name"><br>
+
+    <label>Origin description:</label>
+    <input name="origin_description" id="origin_description"><br>
+
+    <label>Superpowers:</label>
+    <input name="superpowers" id="superpowers"><br>
+
+    <label>Catch phrase:</label>
+    <input name="catch_phrase" id="catch_phrase"><br>
+
+    <label>URL image:</label>
+    <input name="images" id="images"><br>
+
+    <button id="addHero" type="submit">Update</button>
+</form>
+
+
 <div id="result"></div>
-<a href="/all">Back to all</a>
+
+<a href="/heroes">Back to all</a>
 
 
 <script>
 
     var nickname = document.getElementById('nickname');
     var real_name = document.getElementById('real_name');
-    var origin_desctiption = document.getElementById('origin_desctiption');
+    var origin_desctiption = document.getElementById('origin_description');
     var superpowers = document.getElementById('superpowers');
     var catch_phrase = document.getElementById('catch_phrase');
-    var image = document.getElementById('image');
+    var image = document.getElementById('images');
 
     nickname.value = '{{ $hero->nickname }}';
     real_name.value = '{{ $hero->real_name }}';
@@ -53,30 +66,30 @@
     catch_phrase.value = '{{ $hero->catch_phrase }}';
     image.value = '{{ $hero->images }}';
 
-    function updateHero() {
+    {{--function updateHero() {--}}
 
 
 
-        var req = new XMLHttpRequest();
-        var params = 'nickname=' + nickname.value + '&' +
-            '&real_name=' + real_name.value + '&' +
-            '&origin_desctiption=' + origin_desctiption.value + '&' +
-            '&superpowers=' + superpowers.value + '&' +
-            '&catch_phrase=' + catch_phrase.value + '&' +
-            '&image=' + image.value + '&id={{ $hero->id }}';
+        {{--var req = new XMLHttpRequest();--}}
+        {{--var params = 'nickname=' + nickname.value + '&' +--}}
+            {{--'&real_name=' + real_name.value + '&' +--}}
+            {{--'&origin_desctiption=' + origin_desctiption.value + '&' +--}}
+            {{--'&superpowers=' + superpowers.value + '&' +--}}
+            {{--'&catch_phrase=' + catch_phrase.value + '&' +--}}
+            {{--'&image=' + image.value + '&id={{ $hero->id }}';--}}
 
-        req.open("GET", '/updatehero?' + params, true);
+        {{--req.open("GET", '/updatehero?' + params, true);--}}
 
-        req.onreadystatechange = function() {
-            if (req.readyState === 4) {
-                alert(params);
-                var result = document.getElementById('result');
-                result.innerHTML = req.responseText;
-            }
-        };
+        {{--req.onreadystatechange = function() {--}}
+            {{--if (req.readyState === 4) {--}}
+                {{--alert(params);--}}
+                {{--var result = document.getElementById('result');--}}
+                {{--result.innerHTML = req.responseText;--}}
+            {{--}--}}
+        {{--};--}}
 
-        req.send();
-    }
+        {{--req.send();--}}
+    {{--}--}}
 </script>
 </body>
 </html>
