@@ -21,30 +21,17 @@
     </style>
 </head>
 <body>
+
 <div>
-    <a href="/add">Add new Hero</a>
+    <a href="/heroes/create">Add new Hero</a>
 </div>
-@for($i = 0; $i < count($heros); $i++)
+@foreach($heroes as $hero)
     <div class="hero-block">
-        <img style="height: 150px; width: auto;" src="{{ $heros[$i]->images }}">
-        <div>{{ $heros[$i]->nickname }}</div>
-        <a id="{{ $heros[$i]->id }}" href="/hero/{{ $heros[$i]->id }}">Read more</a>
+        <img style="height: 150px; width: auto;" src="{{ $hero->images }}">
+        <div>{{ $hero->nickname }}</div>
+        <a id="{{ $hero->id }}" href="/heroes/{{ $hero->id }}">Read more</a>
     </div>
-@endfor
+@endforeach
 
-<script>
-//    var req = new XMLHttpRequest();
-//    req.open("GET", '/all/show', true);
-//
-//    req.onreadystatechange = function() {
-//        if (req.readyState === 4) {
-//            alert('Send!');
-//
-//            document.body.innerHTML = req.responseText;
-//        }
-//    };
-
-   // req.send();
-</script>
 </body>
 </html>

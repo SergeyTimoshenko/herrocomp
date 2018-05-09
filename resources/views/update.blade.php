@@ -69,7 +69,7 @@
 
         req.onreadystatechange = function() {
             if (req.readyState === 4) {
-                alert('Send!');
+                alert(params);
                 var result = document.getElementById('result');
                 result.innerHTML = req.responseText;
             }

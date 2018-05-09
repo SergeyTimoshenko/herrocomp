@@ -20,8 +20,13 @@
         <div>Superpowers: {{ $hero->superpowers }}</div>
         <div>He say: {{ $hero->catch_phrase }}</div>
         <a href="/update/{{ $hero->id }}">Update</a>
-        <a id="" href="/all">Back to all</a>
-        <a id="" href="/hero/del/{{ $hero->id }}">Delete</a>
+        <a id="" href="/heroes">Back to all</a>
+        <form method="DELETE" action="/heroes/{{ $hero->id }}">
+
+            @method('DELETE')
+            <button id="" type="submit">Delete</button>
+        </form>
+
 
 
 

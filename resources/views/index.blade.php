@@ -17,54 +17,66 @@
 </head>
 
 <body>
+
+<form action="/heroes" method="POST">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <label>Nickname:</label>
-    <input id="nickname"><br>
+    <input name="nickname" id="nickname"><br>
+
     <label>RealName:</label>
-    <input id="real_name"><br>
+    <input name="real_name" id="real_name"><br>
+
     <label>Origin description:</label>
-    <input id="origin_desctiption"><br>
+    <input name="origin_description" id="origin_desctiption"><br>
+
     <label>Superpowers:</label>
-    <input id="superpowers"><br>
+    <input name="superpowers" id="superpowers"><br>
+
     <label>Catch phrase:</label>
-    <input id="catch_phrase"><br>
+    <input name="catch_phrase" id="catch_phrase"><br>
+
     <label>URL image:</label>
-    <input id="image"><br>
-    <button id="addHero" onclick="addHero()">Add person</button>
-    <div id="result"></div>
-    <a href="/all">Back to all</a>
+    <input name="images" id="image"><br>
+
+    <button id="addHero" type="submit">Add person</button>
+
+</form>
+
+<div id="result"></div>
+<a href="/">Back to all</a>
 
 
-    <script>
+    {{--<script>--}}
 
-        function addHero() {
-            var nickname = document.getElementById('nickname');
-            var real_name = document.getElementById('real_name');
-            var origin_desctiption = document.getElementById('origin_desctiption');
-            var superpowers = document.getElementById('superpowers');
-            var catch_phrase = document.getElementById('catch_phrase');
-            var image = document.getElementById('image');
+        {{--function addHero() {--}}
+            {{--var nickname = document.getElementById('nickname');--}}
+            {{--var real_name = document.getElementById('real_name');--}}
+            {{--var origin_desctiption = document.getElementById('origin_desctiption');--}}
+            {{--var superpowers = document.getElementById('superpowers');--}}
+            {{--var catch_phrase = document.getElementById('catch_phrase');--}}
+            {{--var image = document.getElementById('image');--}}
 
 
-            var req = new XMLHttpRequest();
-            var params = 'nickname=' + nickname.value + '&' +
-                '&real_name=' + real_name.value + '&' +
-                '&origin_desctiption=' + origin_desctiption.value + '&' +
-                '&superpowers=' + superpowers.value + '&' +
-                '&catch_phrase=' + catch_phrase.value + '&' +
-                '&image=' + image.value;
+            {{--var req = new XMLHttpRequest();--}}
+            {{--var params = 'nickname=' + nickname.value + '&' +--}}
+                {{--'&real_name=' + real_name.value + '&' +--}}
+                {{--'&origin_desctiption=' + origin_desctiption.value + '&' +--}}
+                {{--'&superpowers=' + superpowers.value + '&' +--}}
+                {{--'&catch_phrase=' + catch_phrase.value + '&' +--}}
+                {{--'&image=' + image.value;--}}
 
-            req.open("GET", '/submit?' + params, true);
+            {{--req.open("GET", '/submit?' + params, true);--}}
 
-            req.onreadystatechange = function() {
-                if (req.readyState === 4) {
-                    alert('Send!');
-                    var result = document.getElementById('result');
-                    result.innerHTML = req.responseText;
-                }
-            };
+            {{--req.onreadystatechange = function() {--}}
+                {{--if (req.readyState === 4) {--}}
+                    {{--alert('Send!');--}}
+                    {{--var result = document.getElementById('result');--}}
+                    {{--result.innerHTML = req.responseText;--}}
+                {{--}--}}
+            {{--};--}}
 
-            req.send();
-        }
-    </script>
+            {{--req.send();--}}
+        {{--}--}}
+    {{--</script>--}}
 </body>
 </html>
