@@ -22,16 +22,18 @@
 </head>
 <body>
 
-<div>
-    <a href="/heroes/create">Add new Hero</a>
-</div>
-@foreach($heroes as $hero)
-    <div id="app" class="hero-block">
-        <img style="height: 150px; width: auto;" src="{{ $hero->images }}">
-        <div v-on:click="renderAll">{{ $hero->nickname }}</div>
-        <a id="{{ $hero->id }}" href="/heroes/{{ $hero->id }}">Read more</a>
+<div id="app">
+    <div>
+        <a href="/heroes/create">Add new Hero</a>
     </div>
-@endforeach
+    @foreach($heroes as $hero)
+        <div class="hero-block">
+            <img style="height: 150px; width: auto;" src="{{ $hero->images }}">
+            <div v-on:click="renderAll">{{ $hero->nickname }}</div>
+            <a id="{{ $hero->id }}" href="/heroes/{{ $hero->id }}">Read more</a>
+        </div>
+    @endforeach
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
