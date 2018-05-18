@@ -26,12 +26,24 @@
     <a href="/heroes/create">Add new Hero</a>
 </div>
 @foreach($heroes as $hero)
-    <div class="hero-block">
+    <div id="app" class="hero-block">
         <img style="height: 150px; width: auto;" src="{{ $hero->images }}">
-        <div>{{ $hero->nickname }}</div>
+        <div v-on:click="renderAll">{{ $hero->nickname }}</div>
         <a id="{{ $hero->id }}" href="/heroes/{{ $hero->id }}">Read more</a>
     </div>
 @endforeach
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue ({
+        el: '#app',
+        methods: {
+            renderAll: function() {
+                alert('I am hear');
+            }
+        }
+    })
+</script>
 
 </body>
 </html>
