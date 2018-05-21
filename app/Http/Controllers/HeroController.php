@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Hero;
+use Illuminate\Http\Response;
 
 class HeroController extends Controller
 {
@@ -20,7 +21,9 @@ class HeroController extends Controller
     public function index()
     {
         $heroes = $this->hero->all();
-        return view('allHero', ['heroes'=>$heroes]);
+        //return view('allHero', ['heroes'=>$heroes]);
+        //return response()->json($heroes);
+        return view('allHero', [response()->json($heroes)]);
     }
 
     /**
