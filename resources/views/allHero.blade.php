@@ -30,8 +30,8 @@
 
 <div id="app">
     <app>
-        <router-view></router-view>
-        <router-link to="/hero"></router-link>
+        {{--<router-view></router-view>--}}
+        {{--<router-link to="/hero"></router-link>--}}
     </app>
 
 
