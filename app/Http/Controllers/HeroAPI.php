@@ -17,4 +17,8 @@ class HeroAPI extends Controller
         $heroes = $this->hero->all();
         return response()->json($heroes);
     }
+    public function showHero($id) {
+        $hero = $this->hero->where('id', $id)->firstOrFail();
+        return view('hero', ['hero', response()->json($hero)]);
+    }
 }

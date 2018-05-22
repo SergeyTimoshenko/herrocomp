@@ -12,7 +12,6 @@
 */
 
 Route::resource('heroes', 'HeroController');
-Route::get('/api/heroes', 'HeroAPI@getAll');
 //Route::get('/', 'herro@index');
 //Route::get('/add', 'herro@create');
 //Route::post('/create', 'herro@store');

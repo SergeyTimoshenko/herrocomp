@@ -19,12 +19,21 @@
             display: block;
             margin-bottom: 20px;
         }
+        img {
+            height: 150px;
+            width: 270px;
+        }
+
     </style>
 </head>
 <body>
 
 <div id="app">
-    <app></app>
+    <app>
+        <router-view></router-view>
+        <router-link to="/hero"></router-link>
+    </app>
+
 
 
     {{--<div>--}}

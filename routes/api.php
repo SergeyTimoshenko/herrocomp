@@ -17,3 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/heroes', 'HeroAPI@getAll');
+Route::get('/heroes/{id}', 'HeroAPI@showHero');

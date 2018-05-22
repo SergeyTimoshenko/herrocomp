@@ -68,9 +68,10 @@ class HeroController extends Controller
     public function show($id)
     {
 
-        $hero = Hero::where('id', $id)->firstOrFail();
+        //$hero = Hero::where('id', $id)->firstOrFail();
 
-        return view('hero', ['hero'=>$hero]);
+        //return view('hero', ['hero'=>$hero]);
+        return view('hero', ['id'=>$id]);
     }
 
     /**
