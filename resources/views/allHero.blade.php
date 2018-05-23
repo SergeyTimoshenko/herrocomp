@@ -29,10 +29,13 @@
 <body>
 
 <div id="app">
-    <app>
+    <router-view></router-view>
+
+    {{--<app>--}}
         {{--<router-view></router-view>--}}
         {{--<router-link to="/hero"></router-link>--}}
-    </app>
+    {{--</app>--}}
+
 
 
 

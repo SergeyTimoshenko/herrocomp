@@ -1,6 +1,8 @@
 <template>
     <div @click="conShow">{{ message }}</div>
 
+
+
 </template>
 
 <script>
@@ -8,16 +10,24 @@
         ei: '#hero',
         data: function () {
             return {
-                message: 'Yay!'
+                message: 'Yay!',
+                hero: []
             }
         },
         methods: {
             conShow: function () {
-                console.log(window.history)
+                console.log(this.$route.params.id)
             },
-            getId: function () {
-
+            showHero: function (id) {
+                axios.get('/api/heroes/' + id).then((response)=> {
+                    console.log(response.data)
+                }, (error)=>{
+                    console.log("ERROR: " + error)
+                })
             }
+        },
+        created: function () {
+            this.showHero(this.$route.params.id)
         }
     }
 </script>
