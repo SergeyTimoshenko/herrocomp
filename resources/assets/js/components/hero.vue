@@ -1,6 +1,13 @@
 <template>
-    <div @click="conShow">{{ message }}</div>
 
+    <div>
+        <div @click="conShow">{{ message }}</div>
+        <img :src="hero.images" alt="1">
+        <div>Name: {{ hero.nickname }}</div>
+        <div>Real Name: {{ hero.real_name }}</div>
+        <div>Superpowers: {{ hero.superpowers }}</div>
+        <div>Description: {{ hero.origin_description }}</div>
+    </div>
 
 
 </template>
@@ -11,7 +18,7 @@
         data: function () {
             return {
                 message: 'Yay!',
-                hero: []
+                hero: {}
             }
         },
         methods: {
@@ -20,7 +27,9 @@
             },
             showHero: function (id) {
                 axios.get('/api/heroes/' + id).then((response)=> {
-                    console.log(response.data)
+
+                    this.hero = response.data;
+                    console.log(this.hero.nickname)
                 }, (error)=>{
                     console.log("ERROR: " + error)
                 })

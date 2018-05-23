@@ -5,7 +5,6 @@
             <img :src="hero.images" alt="1">
             <p>{{ hero.nickname }}</p>
             <router-link :to="{ name: 'hero', params:  {id: hero.id} }">open</router-link>
-
         </div>
     </div>
 </template>

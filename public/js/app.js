@@ -50008,13 +50008,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     ei: '#hero',
     data: function data() {
         return {
             message: 'Yay!',
-            hero: []
+            hero: {}
         };
     },
     methods: {
@@ -50022,8 +50029,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(this.$route.params.id);
         },
         showHero: function showHero(id) {
+            var _this = this;
+
             axios.get('/api/heroes/' + id).then(function (response) {
-                console.log(response.data);
+
+                _this.hero = response.data;
+                console.log(_this.hero.nickname);
             }, function (error) {
                 console.log("ERROR: " + error);
             });
@@ -50042,8 +50053,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { on: { click: _vm.conShow } }, [
-    _vm._v(_vm._s(_vm.message))
+  return _c("div", [
+    _c("div", { on: { click: _vm.conShow } }, [_vm._v(_vm._s(_vm.message))]),
+    _vm._v(" "),
+    _c("img", { attrs: { src: _vm.hero.images, alt: "1" } }),
+    _vm._v(" "),
+    _c("div", [_vm._v("Name: " + _vm._s(_vm.hero.nickname))]),
+    _vm._v(" "),
+    _c("div", [_vm._v("Real Name: " + _vm._s(_vm.hero.real_name))]),
+    _vm._v(" "),
+    _c("div", [_vm._v("Superpowers: " + _vm._s(_vm.hero.superpowers))]),
+    _vm._v(" "),
+    _c("div", [_vm._v("Description: " + _vm._s(_vm.hero.origin_description))])
   ])
 }
 var staticRenderFns = []
@@ -50062,7 +50083,6 @@ if (false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
