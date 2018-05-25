@@ -1,10 +1,11 @@
 <template>
     <div class="app hero-block">
         <h1>All Hero</h1>
-        <div class="hero-block" v-for="hero in heroes">
+        <router-link to="/add">Add new Hero</router-link>
+        <div class="hero-block" v-for="hero in heroes" :key="hero.id">
             <img :src="hero.images" alt="1">
             <p>{{ hero.nickname }}</p>
-            <router-link :to="{ name: 'hero', params:  {id: hero.id} }">open</router-link>
+            <router-link :to="{ name: 'hero', params:  {id: hero.id} }">Read more</router-link>
         </div>
     </div>
 </template>
@@ -33,3 +34,10 @@
         }
     }
     </script>
+
+    <style>
+    .hero-block {
+        display: block;
+    }
+    </style>
+    

@@ -21,4 +21,17 @@ class HeroAPI extends Controller
         $hero = $this->hero->where('id', $id)->firstOrFail();
         return response()->json($hero);
     }
+    public function addHero(Request $request) {
+        $hero = new Hero();
+        $hero->nickname = $request->nickname;
+        $hero->real_name = $request->realName;
+        $hero->origin_description = $request->description;
+        $hero->superpowers = $request->superpower;
+        $hero->catch_phrase = $request->cath;
+        $hero->images = $request->image;
+
+        $hero->save();
+        
+        return $request;
+    }
 }

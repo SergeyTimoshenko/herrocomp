@@ -3,10 +3,10 @@
     <div>
         <div @click="conShow">{{ message }}</div>
         <img :src="hero.images" alt="1">
-        <div>Name: {{ hero.nickname }}</div>
-        <div>Real Name: {{ hero.real_name }}</div>
-        <div>Superpowers: {{ hero.superpowers }}</div>
-        <div>Description: {{ hero.origin_description }}</div>
+        <h1>Name: {{ hero.nickname }}</h1>
+        <p>Real Name: {{ hero.real_name }}</p>
+        <p>Superpowers: {{ hero.superpowers }}</p>
+        <p>Description: {{ hero.origin_description }}</p>
     </div>
 
 
@@ -40,3 +40,16 @@
         }
     }
 </script>
+<style>
+    img {
+        height: auto;
+        width: 500px;
+        text-align: center;
+    }
+    div {
+        margin: 0 auto;
+    }
+    body {
+        text-align: center;
+    }
+</style>
