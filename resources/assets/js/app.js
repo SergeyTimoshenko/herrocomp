@@ -12,11 +12,13 @@ window.Vue = require('vue');
 Vue.use(VueRouter);
 var hero = require('./components/hero.vue');
 var add = require('./components/add.vue');
+var edit = require('./components/edit.vue');
 var router = new VueRouter({
     routes: [
-        { path: '/', component: require('./components/ExampleComponent.vue') },
+        { path: '/', name: 'all', component: require('./components/ExampleComponent.vue') },
         { path: '/hero/:id', name: 'hero', component: hero },
         { path: '/add', component: add },
+        { path: '/hero/edit/:id', name: 'edit', component: edit }
     ]
 });
 

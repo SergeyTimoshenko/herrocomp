@@ -24,31 +24,17 @@
         data: function () {
             return {
                 message: 'Yay!',
-                hero: {
-                    nickname: '',
-                    realName: '',
-                    superpower: '',
-                    description: '',
-                    cath: '',
-                    image: ''
-                },
+                hero: {},
                 seen: false
             }
         },
         methods: {
             addHero: function() {
                 this.seen = true;
-                axios.post('/api/heroes/send', {
-                        nickname: this.hero.nickname,
-                        realName: this.hero.realName,
-                        superpower: this.hero.superpower,
-                        description: this.hero.description,
-                        cath: this.hero.cath,
-                        image: this.hero.image
-                        
-                }).then((response)=> {
+                axios.post('/api/heroes/send', this.hero).then((response)=> {
                     console.log(response);
                     this.seen = false;
+                    this.$router.push({name: 'all'})
                 }).catch((err)=>{
                     console.log(err);
                     

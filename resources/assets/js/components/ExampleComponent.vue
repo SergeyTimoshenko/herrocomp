@@ -12,15 +12,13 @@
 
 <script>
     export default {
-        ei: '#app',
-
         data: function () {
             return {
                 heroes: []
             }
         },
         methods: {
-            getAllHero: function() {
+            getAllHero() {
                 axios.get('/api/heroes').then((response) => {
                     this.heroes = response.data;
                     console.log(this.heroes);
@@ -33,11 +31,23 @@
             this.getAllHero();
         }
     }
-    </script>
+</script>
 
-    <style>
+<style>
     .hero-block {
-        display: block;
+            float: left;
+            padding-left: 10px;
+        }
+    .hero-block:first-child {
+        padding: 0px;
     }
-    </style>
+    a {
+        display: block;
+        margin-bottom: 20px;
+    }
+    img {
+        height: 150px;
+        width: 270px;
+    }
+</style>
     

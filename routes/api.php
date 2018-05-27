@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/heroes', 'HeroAPI@getAll');
 Route::get('/heroes/{id}', 'HeroAPI@showHero');
 Route::post('/heroes/send', 'HeroAPI@addHero');
+Route::delete('/heroes/{id}', 'HeroAPI@deleteHero');
+Route::put('/heroes/{id}', 'HeroAPI@updateHero');

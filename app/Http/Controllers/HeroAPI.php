@@ -34,4 +34,11 @@ class HeroAPI extends Controller
         
         return $request;
     }
+    public function deleteHero($id) {
+        $this->hero->where('id', $id)->delete();
+        return $id;
+    }
+    public function updateHero(Request $request, $id) {
+        $hero = $this->hero->where('id', $id)->update(['nickname'=>$request->nickname, 'real_name'=>$request->real_name, 'origin_description'=>$request->origin_description, 'superpowers'=>$request->superpowers, 'catch_phrase'=>$request->catch_phrase, 'images'=>$request->images]);
+    }
 }

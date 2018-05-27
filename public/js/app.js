@@ -14471,8 +14471,9 @@ window.Vue = __webpack_require__(43);
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 var hero = __webpack_require__(15);
 var add = __webpack_require__(16);
+var edit = __webpack_require__(64);
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
-    routes: [{ path: '/', component: __webpack_require__(17) }, { path: '/hero/:id', name: 'hero', component: hero }, { path: '/add', component: add }]
+    routes: [{ path: '/', name: 'all', component: __webpack_require__(17) }, { path: '/hero/:id', name: 'hero', component: hero }, { path: '/add', component: add }, { path: '/hero/edit/:id', name: 'edit', component: edit }]
 });
 
 /**
@@ -50401,7 +50402,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\nimg {\n    height: auto;\n    width: 500px;\n    text-align: center;\n}\ndiv {\n    margin: 0 auto;\n}\nbody {\n    text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n.img {\n    height: auto;\n    width: 500px;\n    text-align: center;\n}\ndiv {\n    margin: 0 auto;\n}\nbody {\n    text-align: center;\n}\n", ""]);
 
 // exports
 
@@ -50445,6 +50446,11 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_api_service__ = __webpack_require__(63);
+//
+//
+//
+//
 //
 //
 //
@@ -50460,6 +50466,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+// import VueRouter from 'vue-router';
+// const rout = new VueRouter({path: '/', name:'all', component: require('./ExampleComponent.vue')})
 /* harmony default export */ __webpack_exports__["default"] = ({
     ei: '#hero',
     data: function data() {
@@ -50475,12 +50484,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showHero: function showHero(id) {
             var _this = this;
 
-            axios.get('/api/heroes/' + id).then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_0__services_api_service__["a" /* default */].call('get', '/api/heroes/' + id).then(function (res, rej) {
+                _this.hero = res.data;
+            }, function (rej) {
+                console.log(rej);
+            });
+        },
+        deleteHero: function deleteHero(id) {
+            var _this2 = this;
 
-                _this.hero = response.data;
-                console.log(_this.hero.nickname);
-            }, function (error) {
-                console.log("ERROR: " + error);
+            console.log(id, this.$route.params.id);
+            axios.delete('/api/heroes/' + this.$route.params.id).then(function (response) {
+                console.log(id);
+
+                _this2.$router.go(-1);
+            }, function (err) {
+                console.log(err);
             });
         }
     },
@@ -50497,19 +50516,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { on: { click: _vm.conShow } }, [_vm._v(_vm._s(_vm.message))]),
-    _vm._v(" "),
-    _c("img", { attrs: { src: _vm.hero.images, alt: "1" } }),
-    _vm._v(" "),
-    _c("h1", [_vm._v("Name: " + _vm._s(_vm.hero.nickname))]),
-    _vm._v(" "),
-    _c("p", [_vm._v("Real Name: " + _vm._s(_vm.hero.real_name))]),
-    _vm._v(" "),
-    _c("p", [_vm._v("Superpowers: " + _vm._s(_vm.hero.superpowers))]),
-    _vm._v(" "),
-    _c("p", [_vm._v("Description: " + _vm._s(_vm.hero.origin_description))])
-  ])
+  return _c(
+    "div",
+    [
+      _c("div", { on: { click: _vm.conShow } }, [_vm._v(_vm._s(_vm.message))]),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "img",
+        attrs: { src: _vm.hero.images, alt: "1" }
+      }),
+      _vm._v(" "),
+      _c("h1", [_vm._v("Name: " + _vm._s(_vm.hero.nickname))]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Real Name: " + _vm._s(_vm.hero.real_name))]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Superpowers: " + _vm._s(_vm.hero.superpowers))]),
+      _vm._v(" "),
+      _c("p", [_vm._v("Description: " + _vm._s(_vm.hero.origin_description))]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          attrs: { onclick: "return false" },
+          on: {
+            click: function($event) {
+              _vm.deleteHero(_vm.hero.id)
+            }
+          }
+        },
+        [_vm._v("Delete")]
+      ),
+      _vm._v(" "),
+      _c(
+        "router-link",
+        { attrs: { to: { name: "edit", params: { id: _vm.hero.id } } } },
+        [_vm._v("Edit")]
+      ),
+      _vm._v(" "),
+      _c("router-link", { attrs: { to: { name: "all" } } }, [
+        _vm._v("Back to all")
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50593,14 +50642,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             message: 'Yay!',
-            hero: {
-                nickname: '',
-                realName: '',
-                superpower: '',
-                description: '',
-                cath: '',
-                image: ''
-            },
+            hero: {},
             seen: false
         };
     },
@@ -50609,17 +50651,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.seen = true;
-            axios.post('/api/heroes/send', {
-                nickname: this.hero.nickname,
-                realName: this.hero.realName,
-                superpower: this.hero.superpower,
-                description: this.hero.description,
-                cath: this.hero.cath,
-                image: this.hero.image
-
-            }).then(function (response) {
+            axios.post('/api/heroes/send', this.hero).then(function (response) {
                 console.log(response);
                 _this.seen = false;
+                _this.$router.push({ name: 'all' });
             }).catch(function (err) {
                 console.log(err);
             });
@@ -50842,7 +50877,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.hero-block {\n    display: block;\n}\n", ""]);
+exports.push([module.i, "\n.hero-block {\n        float: left;\n        padding-left: 10px;\n}\n.hero-block:first-child {\n    padding: 0px;\n}\na {\n    display: block;\n    margin-bottom: 20px;\n}\nimg {\n    height: 150px;\n    width: 270px;\n}\n", ""]);
 
 // exports
 
@@ -50867,8 +50902,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    ei: '#app',
-
     data: function data() {
         return {
             heroes: []
@@ -50944,6 +50977,379 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var Api = function () {
+    function Api() {
+        _classCallCheck(this, Api);
+    }
+
+    _createClass(Api, [{
+        key: 'call',
+        value: function call(method, url) {
+            console.log(method, url);
+            return __WEBPACK_IMPORTED_MODULE_0_axios___default.a[method](url);
+        }
+    }]);
+
+    return Api;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (new Api());
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(65)
+}
+var normalizeComponent = __webpack_require__(5)
+/* script */
+var __vue_script__ = __webpack_require__(67)
+/* template */
+var __vue_template__ = __webpack_require__(68)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\edit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-35a5e2e1", Component.options)
+  } else {
+    hotAPI.reload("data-v-35a5e2e1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(66);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("3f54bf30", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35a5e2e1\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./edit.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-35a5e2e1\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./edit.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_api_service__ = __webpack_require__(63);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            id: this.$route.params.id,
+            seen: false,
+            hero: {}
+        };
+    },
+    methods: {
+        showHero: function showHero(id) {
+            var _this = this;
+
+            __WEBPACK_IMPORTED_MODULE_0__services_api_service__["a" /* default */].call('get', '/api/heroes/' + id).then(function (res, rej) {
+                _this.hero = res.data;
+            }, function (rej) {
+                console.log(rej);
+            });
+        },
+        sendEdit: function sendEdit() {
+            var _this2 = this;
+
+            this.seen = true;
+            axios.put('/api/heroes/' + this.id, this.hero).then(function (response) {
+                console.log(response);
+                _this2.seen = false;
+                _this2.$router.push({ name: 'hero' });
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }
+    },
+    created: function created() {
+        this.showHero(this.$route.params.id);
+    }
+});
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("form", { attrs: { action: "" } }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.hero.nickname,
+            expression: "hero.nickname"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.hero.nickname },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.hero, "nickname", $event.target.value)
+          }
+        }
+      }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v("Real name")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.hero.real_name,
+            expression: "hero.real_name"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.hero.real_name },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.hero, "real_name", $event.target.value)
+          }
+        }
+      }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v("Superpower")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.hero.superpowers,
+            expression: "hero.superpowers"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.hero.superpowers },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.hero, "superpowers", $event.target.value)
+          }
+        }
+      }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v("Catch")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.hero.catch_phrase,
+            expression: "hero.catch_phrase"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.hero.catch_phrase },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.hero, "catch_phrase", $event.target.value)
+          }
+        }
+      }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v("Description")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.hero.origin_description,
+            expression: "hero.origin_description"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.hero.origin_description },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.hero, "origin_description", $event.target.value)
+          }
+        }
+      }),
+      _c("br"),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "" } }, [_vm._v("Image")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.hero.images,
+            expression: "hero.images"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.hero.images },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.hero, "images", $event.target.value)
+          }
+        }
+      }),
+      _c("img", { attrs: { src: _vm.hero.images, alt: "1" } }),
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          attrs: { onclick: "return false" },
+          on: {
+            click: function($event) {
+              _vm.sendEdit()
+            }
+          }
+        },
+        [_vm._v("Edit")]
+      ),
+      _vm._v(" "),
+      _vm.seen ? _c("div", [_vm._v("Loading...")]) : _vm._e()
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-35a5e2e1", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

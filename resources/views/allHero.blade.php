@@ -8,21 +8,7 @@
 
     <title>Hero</title>
     <style>
-        .hero-block {
-            float: left;
-            padding-left: 10px;
-        }
-        .hero-block:first-child {
-            padding: 0px;
-        }
-        a {
-            display: block;
-            margin-bottom: 20px;
-        }
-        img {
-            height: 150px;
-            width: 270px;
-        }
+        
 
     </style>
 </head>
@@ -30,38 +16,8 @@
 
 <div id="app">
     <router-view></router-view>
-
-    {{--<app>--}}
-        {{--<router-view></router-view>--}}
-        {{--<router-link to="/hero"></router-link>--}}
-    {{--</app>--}}
-
-
-
-
-    {{--<div>--}}
-        {{--<a href="/heroes/create">Add new Hero</a>--}}
-    {{--</div>--}}
-    {{--@foreach($heroes as $hero)--}}
-        {{--<div class="hero-block">--}}
-            {{--<img style="height: 150px; width: auto;" src="{{ $hero->images }}">--}}
-            {{--<div v-on:click="renderAll">{{ $hero->nickname }}</div>--}}
-            {{--<a id="{{ $hero->id }}" href="/heroes/{{ $hero->id }}">Read more</a>--}}
-        {{--</div>--}}
-    {{--@endforeach--}}
 </div>
 
-{{--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>--}}
-{{--<script>--}}
-    {{--new Vue ({--}}
-        {{--el: '#app',--}}
-        {{--methods: {--}}
-            {{--renderAll: function() {--}}
-                {{--alert('I am hear');--}}
-            {{--}--}}
-        {{--}--}}
-    {{--})--}}
-{{--</script>--}}
 <script src="{{url('js/app.js')}}"></script>
 </body>
 </html>
