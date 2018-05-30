@@ -23,21 +23,19 @@
     export default {
         data: function () {
             return {
-                message: 'Yay!',
                 hero: {},
                 seen: false
             }
         },
         methods: {
-            addHero: function() {
+            addHero: function () {
                 this.seen = true;
-                axios.post('/api/heroes/send', this.hero).then((response)=> {
-                    console.log(response);
+                axios.post('/api/heroes/send', this.hero).then((res, rej)=> {
+                    //console.log(res);
                     this.seen = false;
                     this.$router.push({name: 'all'})
-                }).catch((err)=>{
-                    console.log(err);
-                    
+                }, rej => {
+                    console.log(rej)                
                 })
             }
         }

@@ -22,7 +22,7 @@
 <script>
 import Api from '../services/api-service';
 export default {
-    data: function() {
+    data: function () {
         return {
             id: this.$route.params.id,
             seen: false,
@@ -30,7 +30,7 @@ export default {
         }
     },
     methods: {
-        showHero: function (id) {
+        showHero(id) {
             Api.call('get', `/api/heroes/${id}`).then((res,rej) => {
                 this.hero = res.data;
             }, rej => {
@@ -39,13 +39,11 @@ export default {
         },
         sendEdit() {
             this.seen = true
-            axios.put(`/api/heroes/${this.id}`, this.hero).then((response)=> {
-                    console.log(response);
+            axios.put(`/api/heroes/${this.id}`, this.hero).then((res, rej)=> {
                     this.seen = false;
                     this.$router.push({name: 'hero'})
-                }).catch((err)=>{
-                    console.log(err);
-                    
+                }, rej => {
+                     console.log(rej);
                 })
         }
     },
